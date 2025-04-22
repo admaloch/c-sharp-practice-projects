@@ -1,0 +1,41 @@
+Knowledge
+
+3.Which syntax includes an external JavaScript file? 
+            
+          &lt;script type=”text/javascript” file="fileName.js"&gt;&lt;/script&gt;&lt;file type=”text/javascript” src="fileName.js"&gt;&lt;/file&gt;&lt;script type=”text/javascript” src="fileName.js"&gt;&lt;/script&gt; &lt;link type=”text/javascript” src="fileName.js"&gt;&lt;/link&gt;I need to learn this.
+
+4.Which method of the DOM does getElementById() return? 
+            
+          classNamenametagNameidI need to learn this.
+
+5.Which framework is used for mobile development? 
+            
+          BootstrapSpringHibernateDjangoI need to learn this.
+
+6.Which HTML tag is used to embed a graphic in a webpage? 
+            
+          &lt;link&gt;&lt;img&gt;&lt;input&gt;&lt;a&gt;I need to learn this.
+
+7.Which type of script is processed in front-end development? 
+            
+          BashServer-sideClient-sidePowerShellI need to learn this.
+
+8.Which type of API protocol facilitates standardized information exchange? 
+            
+          DHTMLAJAXXMLREST I need to learn this.
+
+9.Which HTTP request action is included in an API’s Uniform Resource Identifier (URI) from an API call? 
+            
+          VerbFooterGetConnectI need to learn this.
+
+10.Which application contains data-centric properties that can be rendered when required? 
+            
+          DHTMLXMLJSONJavaScriptI need to learn this.
+
+11.Which application uses serialization to make sure that it transmits data without any modifications? 
+            
+          XHTMLDHTMLSGMLXMLI need to learn this.
+
+12.Which method returns a string containing an XML representation of data in the Dataset object? 
+            
+           GetXmlSchema WriteXml GetXml  ReadXmlI need to learn this.Save for later

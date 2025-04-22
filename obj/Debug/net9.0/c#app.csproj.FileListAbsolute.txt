@@ -1,0 +1,14 @@
+/Users/davismaloch/Desktop/c#-project/c#app/bin/Debug/net9.0/c#app
+/Users/davismaloch/Desktop/c#-project/c#app/bin/Debug/net9.0/c#app.deps.json
+/Users/davismaloch/Desktop/c#-project/c#app/bin/Debug/net9.0/c#app.runtimeconfig.json
+/Users/davismaloch/Desktop/c#-project/c#app/bin/Debug/net9.0/c#app.dll
+/Users/davismaloch/Desktop/c#-project/c#app/bin/Debug/net9.0/c#app.pdb
+/Users/davismaloch/Desktop/c#-project/c#app/obj/Debug/net9.0/c#app.GeneratedMSBuildEditorConfig.editorconfig
+/Users/davismaloch/Desktop/c#-project/c#app/obj/Debug/net9.0/c#app.AssemblyInfoInputs.cache
+/Users/davismaloch/Desktop/c#-project/c#app/obj/Debug/net9.0/c#app.AssemblyInfo.cs
+/Users/davismaloch/Desktop/c#-project/c#app/obj/Debug/net9.0/c#app.csproj.CoreCompileInputs.cache
+/Users/davismaloch/Desktop/c#-project/c#app/obj/Debug/net9.0/c#app.dll
+/Users/davismaloch/Desktop/c#-project/c#app/obj/Debug/net9.0/refint/c#app.dll
+/Users/davismaloch/Desktop/c#-project/c#app/obj/Debug/net9.0/c#app.pdb
+/Users/davismaloch/Desktop/c#-project/c#app/obj/Debug/net9.0/c#app.genruntimeconfig.cache
+/Users/davismaloch/Desktop/c#-project/c#app/obj/Debug/net9.0/ref/c#app.dll
