@@ -12,3 +12,4 @@
 /Users/davismaloch/Desktop/c#-project/c#app/obj/Debug/net9.0/c#app.pdb
 /Users/davismaloch/Desktop/c#-project/c#app/obj/Debug/net9.0/c#app.genruntimeconfig.cache
 /Users/davismaloch/Desktop/c#-project/c#app/obj/Debug/net9.0/ref/c#app.dll
+/Users/davismaloch/Desktop/c#-project/c#app/obj/Debug/net9.0/c#app.sourcelink.json
