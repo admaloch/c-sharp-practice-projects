@@ -1,21 +1,16 @@
 // Program.cs
 using System;
-using System.Dynamic;
-using Microsoft.VisualBasic;
 
 namespace DiceGame
 {
-    class Program
-    {
-
-        public enum GameResult
+    public enum GameResult
         {
             PlayerWin,
             ComputerWin,
             Draw
         }
-        public static class Constants
-{
+    public static class Constants
+        {
             public const int MinDiceValue = 1;
             public const int MaxDiceValue = 6;
             public const int DefaultDelay = 20;
@@ -32,8 +27,11 @@ namespace DiceGame
                 }
                 Console.WriteLine();
             }
-        }
+        public static void PrintDivider() => Console.WriteLine("--------------------");
 
+        }
+    class Program
+    {
         class Player
         {
             public string Name {get; set;}
@@ -42,7 +40,6 @@ namespace DiceGame
             {
                 Name = name;
             }
-
             static Random rand = new Random();
             public int Roll()
             {
@@ -51,22 +48,18 @@ namespace DiceGame
                 Utils.Typewriter($"{Name} rolled a {diceNum}");
                 return diceNum;
             }
-
         }
         static void Main(string[] args)
-        {   
-                        
+        {       
+            Utils.PrintDivider();                 
             Utils.Typewriter("Hello, you have entered the dice rolling game.");
-
             string playerName = PlayerName();
             Player player = new Player(playerName);
             Player computer = new Player("Computer");
-
             int numRounds = NumRounds();
             int roundNum = 1;
-
             while(roundNum <= numRounds) {
-                System.Console.WriteLine("----------");
+                Utils.PrintDivider();
                 Utils.Typewriter($"Starting round {roundNum}");
                 int playerRoll = PlayerRound(player);
                 int computerRoll = computer.Roll();
@@ -77,8 +70,6 @@ namespace DiceGame
             FinalResults(player, computer);
             Utils.Typewriter("Game Over: restart the program to play again");
         }
-
-
         static string PlayerName() 
         {
             Utils.Typewriter("What is your name?");
@@ -90,27 +81,23 @@ namespace DiceGame
             Utils.Typewriter($"Welcome to the dice table {playerName}");
             return playerName;
         }
-
-        static int NumRounds() 
+        static int NumRounds()
         {
+            int number;
             Utils.Typewriter("How many rounds would you like to play?");
-            bool isNumber = int.TryParse(Console.ReadLine(), out int number);
-            while(!isNumber) {
+            while (!int.TryParse(Console.ReadLine(), out number) || number <= 0)
+            {
                 Utils.Typewriter("Invalid number. How many rounds would you like to play?");
-                number = Convert.ToInt32(Console.ReadLine());
             }
             return number;
         }
-
         static int PlayerRound(Player player) 
         {
-
-
             Utils.Typewriter($"Press {Constants.RollKey} to roll the dice");
-            var BtnPressed = Console.ReadLine();
-            while(!BtnPressed.ToLower().Equals(Constants.RollKey)) {
+            var btnPressed = Console.ReadLine();
+            while (string.IsNullOrEmpty(btnPressed) || !btnPressed.ToLowerInvariant().Equals(Constants.RollKey)) {
                 Utils.Typewriter($"Invalid input. Press {Constants.RollKey} to roll the dice");
-                BtnPressed = Console.ReadLine();
+                btnPressed = Console.ReadLine();
             }
             return player.Roll();
         }
@@ -118,7 +105,7 @@ namespace DiceGame
         {
             int playerRoundsWon = 0;
             int computerRoundsWon = 0;
-            System.Console.WriteLine("----------");
+            Utils.PrintDivider();
             Utils.Typewriter("All rounds complete. Showing final results...");
             
             for(var i = 0; i < player.Rolls.Count; i++)
