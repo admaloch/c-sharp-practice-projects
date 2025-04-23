@@ -6,6 +6,26 @@ namespace DiceGame
 {
     class Program
     {
+        public static class Utils
+        {
+            public static void Typewriter(string message, int delay = 20)
+            {
+                foreach (char c in message)
+                {
+                    Console.Write(c);
+                    Thread.Sleep(delay);
+                }
+                Console.WriteLine();
+            }
+        }
+
+        public enum GameResult
+        {
+            PlayerWin,
+            ComputerWin,
+            Draw
+        }
+
         class Player
         {
             public string Name {get; set;}
@@ -20,17 +40,15 @@ namespace DiceGame
             {
                 int diceNum = rand.Next(1, 7);
                 Rolls.Add(diceNum);
-                Typewriter($"{Name} rolled a {diceNum}");
+                Utils.Typewriter($"{Name} rolled a {diceNum}");
                 return diceNum;
             }
 
         }
-        
         static void Main(string[] args)
         {   
-           
                         
-            Typewriter("Hello, you have entered the dice rolling game.");
+            Utils.Typewriter("Hello, you have entered the dice rolling game.");
 
             string playerName = PlayerName();
             Player player = new Player(playerName);
@@ -41,35 +59,36 @@ namespace DiceGame
 
             while(roundNum <= numRounds) {
                 System.Console.WriteLine("----------");
-                Typewriter($"Starting round {roundNum}");
+                Utils.Typewriter($"Starting round {roundNum}");
                 int playerRoll = PlayerRound(player);
                 int computerRoll = computer.Roll();
-                RoundResults(playerRoll, computerRoll);
+                GameResult roundResult = GetResult(playerRoll, computerRoll);
+                PrintWinner(roundResult, player.Name);
                 roundNum ++; 
             }
             FinalResults(player, computer);
-            Typewriter("Game Over: restart the program to play again");
+            Utils.Typewriter("Game Over: restart the program to play again");
         }
 
 
         static string PlayerName() 
         {
-            Typewriter("What is your name?");
+            Utils.Typewriter("What is your name?");
             var playerName = Console.ReadLine();
             while(string.IsNullOrEmpty(playerName)) {
-                Typewriter("Invalid input. What is your name?");
+                Utils.Typewriter("Invalid input. What is your name?");
                 playerName = Console.ReadLine();
             }
-            Typewriter($"Welcome to the dice table {playerName}");
+            Utils.Typewriter($"Welcome to the dice table {playerName}");
             return playerName;
         }
 
         static int NumRounds() 
         {
-            Typewriter("How many rounds would you like to play?");
+            Utils.Typewriter("How many rounds would you like to play?");
             bool isNumber = int.TryParse(Console.ReadLine(), out int number);
             while(!isNumber) {
-                Typewriter("Invalid number. How many rounds would you like to play?");
+                Utils.Typewriter("Invalid number. How many rounds would you like to play?");
                 number = Convert.ToInt32(Console.ReadLine());
             }
             return number;
@@ -77,54 +96,54 @@ namespace DiceGame
 
         static int PlayerRound(Player player) 
         {
-            Typewriter("Press r to roll the dice");
+            const string RollKey = "r";
+
+            Utils.Typewriter($"Press {RollKey} to roll the dice");
             var BtnPressed = Console.ReadLine();
-            while(!BtnPressed.ToLower().Equals("r")) {
-                Typewriter("Invalid input. Press r to roll the dice");
+            while(!BtnPressed.ToLower().Equals(RollKey)) {
+                Utils.Typewriter($"Invalid input. Press {RollKey} to roll the dice");
                 BtnPressed = Console.ReadLine();
             }
             return player.Roll();
         }
-        static void RoundResults(int playerRoll, int computerRoll) 
-        {
-            if(playerRoll > computerRoll) {
-                Typewriter("Player won! :)");
-            } else if (computerRoll > playerRoll) {
-                Typewriter("Computer won! :(");
-            } else {
-                Typewriter("Draw");
-            }
-        }
         static void FinalResults(Player player, Player computer)
         {
             int playerRoundsWon = 0;
-            int dealerRoundsWon = 0;
+            int computerRoundsWon = 0;
             System.Console.WriteLine("----------");
-            Typewriter("All rounds complete. Showing final results...");
+            Utils.Typewriter("All rounds complete. Showing final results...");
             
             for(var i = 0; i < player.Rolls.Count; i++)
             {
                 if(player.Rolls[i] > computer.Rolls[i]) playerRoundsWon++;
-                else if(player.Rolls[i] < computer.Rolls[i]) dealerRoundsWon++;
+                else if(player.Rolls[i] < computer.Rolls[i]) computerRoundsWon++;
             }
 
-            Typewriter($"Rounds won: {playerRoundsWon} -- Rounds lost: {dealerRoundsWon}");
-
-            if(playerRoundsWon > dealerRoundsWon) Typewriter("Player won! :)");
-            else if(playerRoundsWon < dealerRoundsWon) Typewriter("Player lost! :(");
-            else Typewriter("Tie!");
+            Utils.Typewriter($"Rounds won: {playerRoundsWon} -- Rounds lost: {computerRoundsWon}");
+            
+            GameResult roundResult = GetResult(playerRoundsWon, computerRoundsWon);
+            PrintWinner(roundResult, player.Name);
         }
-
-        static void Typewriter(string message, int delay = 20)
-        {
-            foreach (char c in message)
+        static GameResult GetResult(int playerNum, int computerNum)
             {
-                Console.Write(c);
-                Thread.Sleep(delay);
+                if(playerNum > computerNum) return GameResult.PlayerWin;
+                else if (computerNum > playerNum)  return GameResult.ComputerWin;
+                else return GameResult.Draw;
             }
-            Console.WriteLine(); // To move to the next line
+         static void PrintWinner(GameResult result, string playerName) 
+        {
+           switch (result)
+           {
+                case GameResult.PlayerWin:
+                    Utils.Typewriter($"{playerName} won! :)");
+                    break;
+                case GameResult.ComputerWin:
+                    Utils.Typewriter("The computer won! :(");
+                    break;
+                case GameResult.Draw:
+                    Utils.Typewriter("Draw!");
+                    break;
+           }
         }
-
-        
     }
 }
