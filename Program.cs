@@ -1,14 +1,29 @@
 // Program.cs
 using System;
 using System.Dynamic;
+using Microsoft.VisualBasic;
 
 namespace DiceGame
 {
     class Program
     {
+
+        public enum GameResult
+        {
+            PlayerWin,
+            ComputerWin,
+            Draw
+        }
+        public static class Constants
+{
+            public const int MinDiceValue = 1;
+            public const int MaxDiceValue = 6;
+            public const int DefaultDelay = 20;
+            public const string RollKey = "r";
+        }
         public static class Utils
         {
-            public static void Typewriter(string message, int delay = 20)
+            public static void Typewriter(string message, int delay = Constants.DefaultDelay)
             {
                 foreach (char c in message)
                 {
@@ -17,13 +32,6 @@ namespace DiceGame
                 }
                 Console.WriteLine();
             }
-        }
-
-        public enum GameResult
-        {
-            PlayerWin,
-            ComputerWin,
-            Draw
         }
 
         class Player
@@ -38,7 +46,7 @@ namespace DiceGame
             static Random rand = new Random();
             public int Roll()
             {
-                int diceNum = rand.Next(1, 7);
+                int diceNum = rand.Next(Constants.MinDiceValue, Constants.MaxDiceValue + 1);
                 Rolls.Add(diceNum);
                 Utils.Typewriter($"{Name} rolled a {diceNum}");
                 return diceNum;
@@ -96,12 +104,12 @@ namespace DiceGame
 
         static int PlayerRound(Player player) 
         {
-            const string RollKey = "r";
 
-            Utils.Typewriter($"Press {RollKey} to roll the dice");
+
+            Utils.Typewriter($"Press {Constants.RollKey} to roll the dice");
             var BtnPressed = Console.ReadLine();
-            while(!BtnPressed.ToLower().Equals(RollKey)) {
-                Utils.Typewriter($"Invalid input. Press {RollKey} to roll the dice");
+            while(!BtnPressed.ToLower().Equals(Constants.RollKey)) {
+                Utils.Typewriter($"Invalid input. Press {Constants.RollKey} to roll the dice");
                 BtnPressed = Console.ReadLine();
             }
             return player.Roll();
