@@ -1,16 +1,34 @@
 // Program.cs
 using System;
-
-
-//10 rounds
-//player and AI
-//
+using System.Dynamic;
 
 namespace DiceGame
 {
     class Program
     {
+        class Person
+        {
+            public string Name {get; set;}
+            public List<int> Rolls {get;} = new List<int>();
+            public Person (string name) 
+            {
+                Name = name;
+            }
 
+            static Random rand = new Random();
+            static int RollDie()
+            {
+                return rand.Next(1, 7);
+            }
+            public int Roll()
+            {
+                int diceNum = rand.Next(1, 7);
+                Rolls.Add(diceNum);
+                Typewriter($"{Name} rolled a {diceNum}");
+                return diceNum;
+            }
+
+        }
         static void Main(string[] args)
         {   
             int roundNum = 1;
