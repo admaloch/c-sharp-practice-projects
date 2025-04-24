@@ -29,22 +29,28 @@ namespace DiceGame
                     PrintWinner(roundResult, player.Name);
                     roundNum ++; 
                 }
-                (playerWins, computerWins, ties) = CalculateRoundResults(player, computer);
+                var (playerWins, computerWins, ties) = CalculateRoundResults(player, computer);
                 GameStats stats = new GameStats
                 {
-                    PlayerName = player.Name;
-                    PlayerRoundsWon = playerWins;
-                    ComputerRoundsWon = computerWins;
-                    TiedRounds = ties;
-                    DatePlayed = DateTime.Now;
+                    PlayerName = player.Name,
+                    PlayerRoundsWon = playerWins,
+                    ComputerRoundsWon = computerWins,
+                    TiedRounds = ties,
+                    DatePlayed = DateTime.Now
                 };
                 
                 FileManager.SaveGameStats(stats);
-
                 isGameActive = GameOver();
 
+                if (isGameActive)
+                {
+                    player.Rolls.Clear();
+                    computer.Rolls.Clear();
+                } else 
+                {
+                    Utils.Typewriter("Thank you for playing. Restart the program if you decide to play again");
+                }
             }
-           
         }
         static string PlayerName() 
         {
@@ -91,14 +97,14 @@ namespace DiceGame
             {
                 if(player.Rolls[i] > computer.Rolls[i]) playerRoundsWon++;
                 else if(player.Rolls[i] < computer.Rolls[i]) computerRoundsWon++;
-                else roundsTied++
+                else roundsTied++;
             }
 
-            Utils.Typewriter($"Rounds won: {playerRoundsWon} -- Rounds lost: {computerRoundsWon}");
+            Utils.Typewriter($"Won: {playerRoundsWon} -- Lost: {computerRoundsWon} -- Tied: {roundsTied} ");
             
             GameResult roundResult = GetResult(playerRoundsWon, computerRoundsWon);
             PrintWinner(roundResult, player.Name);
-            return (playerRoundsWon, computerRoundsWon, roundsTied)
+            return (playerRoundsWon, computerRoundsWon, roundsTied);
 
         }
         static GameResult GetResult(int playerNum, int computerNum)
@@ -107,7 +113,7 @@ namespace DiceGame
             else if (computerNum > playerNum)  return GameResult.ComputerWin;
             else return GameResult.Draw;
         }
-         static void PrintWinner(GameResult result, string playerName) 
+        static void PrintWinner(GameResult result, string playerName) 
         {
            switch (result)
            {
