@@ -10,14 +10,15 @@ namespace DiceGame
     class Program
     {
         static void Main(string[] args)
-        {       
+        {   
+            bool isGameActive = false;    
             Utils.PrintDivider();                 
             Utils.Typewriter("Hello, you have entered the dice rolling game.");
-            string playerName = PlayerName();
-            Player player = new Player(playerName);
-            Player computer = new Player("Computer");
-            bool isGameActive = true;
+            MenuOptions();
             while(isGameActive) {
+                string playerName = PlayerName();
+                Player player = new Player(playerName);
+                Player computer = new Player("Computer");
                 int numRounds = NumRounds();
                 int roundNum = 1;
                 while(roundNum <= numRounds) {
@@ -51,6 +52,49 @@ namespace DiceGame
                     Utils.Typewriter("Thank you for playing. Restart the program if you decide to play again");
                 }
             }
+        }
+        static void MenuOptions()
+        {
+            Utils.Typewriter("Select one from the following options");
+           bool exit = false;
+            while (!exit)
+            {
+                Console.Clear();
+                Console.WriteLine("=== Dice Game Menu ===");
+                Console.WriteLine($"1. Start New Game");
+                Console.WriteLine($"2. View Game History");
+                Console.WriteLine($"3. View Player Stats");
+                Console.WriteLine($"4. Reset Stats");
+                Console.WriteLine($"5. Exit");
+                Console.Write("Select an option: ");
+                
+                string choice = Console.ReadLine();
+                
+                switch (choice)
+                {
+                    case MenuOptions.StartNewGame:
+                        StartNewGame();
+                        break;
+                    case MenuOptions.ViewGameHistory:
+                        ViewGameHistory();
+                        break;
+                    case MenuOptions.ViewPlayerStats:
+                        ViewPlayerStats();
+                        break;
+                    case MenuOptions.ResetStats:
+                        ResetStats();
+                        break;
+                    case MenuOptions.Exit:
+                        Console.WriteLine("Thanks for playing!");
+                        Environment.Exit(0);
+                        break;
+                    default:
+                        Console.WriteLine("Invalid selection. Please try again.");
+                        break;
+                }
+            }
+
+
         }
         static string PlayerName() 
         {
