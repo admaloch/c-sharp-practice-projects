@@ -29,7 +29,18 @@ namespace DiceGame
                     PrintWinner(roundResult, player.Name);
                     roundNum ++; 
                 }
-                FinalResults(player, computer);
+                (playerWins, computerWins, ties) = CalculateRoundResults(player, computer);
+                GameStats stats = new GameStats
+                {
+                    PlayerName = player.Name;
+                    PlayerRoundsWon = playerWins;
+                    ComputerRoundsWon = computerWins;
+                    TiedRounds = ties;
+                    DatePlayed = DateTime.Now;
+                };
+                
+                FileManager.SaveGameStats(stats);
+
                 isGameActive = GameOver();
 
             }
@@ -66,10 +77,13 @@ namespace DiceGame
             }
             return player.Roll();
         }
-        static void FinalResults(Player player, Player computer)
+        static 
+            (int playerRoundsWon, int computerRoundsWon, int tiedRounds) 
+            CalculateRoundResults(Player player, Player computer)
         {
             int playerRoundsWon = 0;
             int computerRoundsWon = 0;
+            int roundsTied = 0;
             Utils.PrintDivider();
             Utils.Typewriter("All rounds complete. Showing final results...");
             
@@ -77,19 +91,22 @@ namespace DiceGame
             {
                 if(player.Rolls[i] > computer.Rolls[i]) playerRoundsWon++;
                 else if(player.Rolls[i] < computer.Rolls[i]) computerRoundsWon++;
+                else roundsTied++
             }
 
             Utils.Typewriter($"Rounds won: {playerRoundsWon} -- Rounds lost: {computerRoundsWon}");
             
             GameResult roundResult = GetResult(playerRoundsWon, computerRoundsWon);
             PrintWinner(roundResult, player.Name);
+            return (playerRoundsWon, computerRoundsWon, roundsTied)
+
         }
         static GameResult GetResult(int playerNum, int computerNum)
-            {
-                if(playerNum > computerNum) return GameResult.PlayerWin;
-                else if (computerNum > playerNum)  return GameResult.ComputerWin;
-                else return GameResult.Draw;
-            }
+        {
+            if(playerNum > computerNum) return GameResult.PlayerWin;
+            else if (computerNum > playerNum)  return GameResult.ComputerWin;
+            else return GameResult.Draw;
+        }
          static void PrintWinner(GameResult result, string playerName) 
         {
            switch (result)
