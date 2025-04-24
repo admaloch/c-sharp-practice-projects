@@ -1,57 +1,14 @@
 // Program.cs
 using System;
+using DiceGame.Enums;
+using DiceGame.Utilities;
+using c_app.Constants;
+using DiceGame.Models;
 
 namespace DiceGame
 {
-    public enum GameResult
-        {
-            PlayerWin,
-            ComputerWin,
-            Draw
-        }
-    public static class Constants
-        {
-            public const int MinDiceValue = 1;
-            public const int MaxDiceValue = 6;
-            public const int DefaultDelay = 20;
-            public const string RollKey = "r";
-            public const string PlayAgainKey = "y";
-            public const string QuitKey = "q";
-
-        }
-        public static class Utils
-        {
-            public static void Typewriter(string message, int delay = Constants.DefaultDelay)
-            {
-                foreach (char c in message)
-                {
-                    Console.Write(c);
-                    Thread.Sleep(delay);
-                }
-                Console.WriteLine();
-            }
-        public static void PrintDivider() => Console.WriteLine("--------------------");
-
-        }
     class Program
     {
-        class Player
-        {
-            public string Name {get; set;}
-            public List<int> Rolls {get;} = new List<int>();
-            public Player (string name) 
-            {
-                Name = name;
-            }
-            static Random rand = new Random();
-            public int Roll()
-            {
-                int diceNum = rand.Next(Constants.MinDiceValue, Constants.MaxDiceValue + 1);
-                Rolls.Add(diceNum);
-                Utils.Typewriter($"{Name} rolled a {diceNum}");
-                return diceNum;
-            }
-        }
         static void Main(string[] args)
         {       
             Utils.PrintDivider();                 
@@ -73,7 +30,7 @@ namespace DiceGame
                     roundNum ++; 
                 }
                 FinalResults(player, computer);
-                GameOver();
+                isGameActive = GameOver();
 
             }
            
@@ -91,13 +48,13 @@ namespace DiceGame
         }
         static int NumRounds()
         {
-            int number;
+            int numberInput;
             Utils.Typewriter("How many rounds would you like to play?");
-            while (!int.TryParse(Console.ReadLine(), out number) || number <= 0)
+            while (!int.TryParse(Console.ReadLine(), out numberInput) || numberInput <= 0)
             {
                 Utils.Typewriter("Invalid number. How many rounds would you like to play?");
             }
-            return number;
+            return numberInput;
         }
         static int PlayerRound(Player player) 
         {
@@ -148,9 +105,19 @@ namespace DiceGame
                     break;
            }
         }
-        static void GameOver()
+        static bool GameOver()
         {
             Utils.Typewriter($"Game Over: Press {Constants.PlayAgainKey} to play again or {Constants.QuitKey} to quit.");
+            var btnPressed = Console.ReadLine();
+            while (string.IsNullOrEmpty(btnPressed) 
+                || !btnPressed.ToLowerInvariant().Equals(Constants.PlayAgainKey) 
+                && !btnPressed.ToLowerInvariant().Equals(Constants.QuitKey)) {
+                    Utils.Typewriter($"Invalid input. Press {Constants.PlayAgainKey} to play again or {Constants.QuitKey}");
+                    btnPressed = Console.ReadLine();
+            }
+            bool playGameAgain = btnPressed.ToLowerInvariant().Equals(Constants.PlayAgainKey) 
+                ? true : false;
+            return playGameAgain;
         }
     }
 }
