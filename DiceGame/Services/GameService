@@ -1,0 +1,8 @@
+//for anything related to handling main game play
+namespace DiceGame.Services
+{
+    public static class GameService 
+    {
+
+    }
+}

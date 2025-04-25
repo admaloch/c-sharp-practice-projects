@@ -1,0 +1,8 @@
+//for anything related to displying menu options
+namespace DiceGame.Services
+{
+    public static class MenuService 
+    {
+        
+    }
+}

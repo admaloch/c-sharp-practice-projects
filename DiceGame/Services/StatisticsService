@@ -1,0 +1,8 @@
+//for anything related to generating user/game statistics from json file
+namespace DiceGame.Services
+{
+    public static class StatisticsService 
+    {
+        
+    }
+}

@@ -1,0 +1,9 @@
+//for anything related to gathering info about players
+
+namespace DiceGame.Services
+{
+    public static class PlayerService 
+    {
+        
+    }
+}
