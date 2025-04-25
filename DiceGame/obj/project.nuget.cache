@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "fXTIyrukHPA=",
+  "dgSpecHash": "xYqqkm9Shy4=",
   "success": true,
   "projectFilePath": "/Users/davismaloch/Desktop/c#-project/c#app/DiceGame/c#app.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/Users/davismaloch/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
   "logs": []
 }

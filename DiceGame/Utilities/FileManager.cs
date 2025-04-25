@@ -1,6 +1,7 @@
 using System.Text.Json;
 using DiceGame.Models;
 
+
 namespace DiceGame.Utilities
 {
     public static class FileManager
@@ -25,5 +26,17 @@ namespace DiceGame.Utilities
             string json = JsonSerializer.Serialize(allStats, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(filePath, json);
         }
+
+         public static List<T> LoadFromJsonFile<T>(string filePath)
+            {
+                if (!File.Exists(filePath))
+                {
+                    return new List<T>();
+                }
+
+                string json = File.ReadAllText(filePath);
+                List<T>? data = JsonSerializer.Deserialize<List<T>>(json);
+                return data ?? new List<T>();
+            }
     }
 }

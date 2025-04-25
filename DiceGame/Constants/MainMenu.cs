@@ -1,6 +1,6 @@
 namespace DiceGame.Constants
 {
-    public static class MenuOptions
+    public static class MainMenuVars
     {
         public const string StartNewGame = "1";
         public const string ViewGameHistory = "2";

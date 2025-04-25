@@ -1,9 +1,9 @@
-using c_app.Constants;
+using DiceGame.Constants;
 using DiceGame.Utilities;
 
 namespace DiceGame.Models
 {
-    class Player
+    public class Player
     {
         public string Name {get; set;}
         public List<int> Rolls {get;} = new List<int>();
@@ -14,7 +14,7 @@ namespace DiceGame.Models
         static Random rand = new Random();
         public int Roll()
         {
-            int diceNum = rand.Next(Constants.MinDiceValue, Constants.MaxDiceValue + 1);
+            int diceNum = rand.Next(GameConstants.MinDiceValue, GameConstants.MaxDiceValue + 1);
             Rolls.Add(diceNum);
             Utils.Typewriter($"{Name} rolled a {diceNum}");
             return diceNum;

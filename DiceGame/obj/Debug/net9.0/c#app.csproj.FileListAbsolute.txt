@@ -28,3 +28,6 @@
 /Users/davismaloch/Desktop/c#-project/c#app/DiceGame/obj/Debug/net9.0/c#app.pdb
 /Users/davismaloch/Desktop/c#-project/c#app/DiceGame/obj/Debug/net9.0/c#app.genruntimeconfig.cache
 /Users/davismaloch/Desktop/c#-project/c#app/DiceGame/obj/Debug/net9.0/ref/c#app.dll
+/Users/davismaloch/Desktop/c#-project/c#app/DiceGame/obj/Debug/net9.0/c#app.csproj.AssemblyReference.cache
+/Users/davismaloch/Desktop/c#-project/c#app/DiceGame/bin/Debug/net9.0/Newtonsoft.Json.dll
+/Users/davismaloch/Desktop/c#-project/c#app/DiceGame/obj/Debug/net9.0/c#app.csproj.Up2Date
