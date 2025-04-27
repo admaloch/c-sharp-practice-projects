@@ -17,7 +17,7 @@ namespace DiceGame.Services
                 Utils.Typewriter("Invalid input. What is your name?");
                 playerName = Console.ReadLine();
             }
-            Utils.Typewriter($"Welcome to the dice table {playerName}");
+            Utils.SpacedPrint($"Welcome to the dice table {playerName}");
             return playerName;
         }
 

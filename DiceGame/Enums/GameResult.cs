@@ -2,8 +2,8 @@
  {
     public enum GameResult
     {
-        PlayerWin,
-        ComputerWin,
+        Player,
+        Computer,
         Draw
     }
  }

@@ -9,14 +9,19 @@ namespace DiceGame.Services
 {
     public static class GameService 
     {
+        public static void GameIntro()
+        {
+            System.Console.WriteLine();
+            Utils.PrintDivider();
+            Utils.Typewriter("Starting a new game");
+        }
         public static (int playerRoundsWon, int computerRoundsWon, int tiedRounds) 
             CalculateRoundResults(Player player, Player computer)
         {
             int playerRoundsWon = 0;
             int computerRoundsWon = 0;
             int roundsTied = 0;
-            Utils.PrintDivider();
-            Utils.Typewriter("All rounds complete. Showing final results...");
+            Utils.SpacedPrint("All rounds complete. Showing final results...");
             for(var i = 0; i < player.Rolls.Count; i++)
             {
                 if(player.Rolls[i] > computer.Rolls[i]) playerRoundsWon++;
@@ -24,37 +29,23 @@ namespace DiceGame.Services
                 else roundsTied++;
             }
             Utils.Typewriter($"Won: {playerRoundsWon} -- Lost: {computerRoundsWon} -- Tied: {roundsTied} ");
-            GameResult roundResult = GetWinner(playerRoundsWon, computerRoundsWon);
-            PrintWinner(roundResult, player.Name);
+            string roundWinner = GetWinner(player.Name, playerRoundsWon, computerRoundsWon);
+            Utils.Typewriter(roundWinner);
             return (playerRoundsWon, computerRoundsWon, roundsTied);
         }
 
-        public static GameResult GetWinner(int playerNum, int computerNum)
-        {
-            if(playerNum > computerNum) return GameResult.PlayerWin;
-            else if (computerNum > playerNum)  return GameResult.ComputerWin;
-            else return GameResult.Draw;
-        }
 
-        public static void PrintWinner(GameResult result, string playerName) 
+
+        public static string GetWinner(string playerName, int playerNum, int computerNum)
         {
-           switch (result)
-           {
-                case GameResult.PlayerWin:
-                    Utils.Typewriter($"Winner: {playerName}");
-                    break;
-                case GameResult.ComputerWin:
-                    Utils.Typewriter("Winner: Computer");
-                    break;
-                case GameResult.Draw:
-                    Utils.Typewriter("Draw!");
-                    break;
-           }
+            if(playerNum > computerNum) return $"{playerName} wins!";
+            else if(playerNum < computerNum) return "Computer wins!";
+            else return "Draw!";
         }
 
         public static bool IsGameOver()
         {
-            Utils.Typewriter($"Game Over: Press {GameConstants.PlayAgainKey} to play again or {GameConstants.QuitKey} to quit.");
+            Utils.PrintWithDividers($"Game Over: Press {GameConstants.PlayAgainKey} to play again or {GameConstants.QuitKey} to quit.");
             var btnPressed = Console.ReadLine();
             while (string.IsNullOrEmpty(btnPressed) 
                 || !btnPressed.ToLowerInvariant().Equals(GameConstants.PlayAgainKey) 

@@ -11,23 +11,23 @@ namespace DiceGame
     {
         static void Main(string[] args)
         {   
-            bool isGameActive = false;    
-            Utils.PrintDivider();                 
-            Utils.Typewriter("Hello, you have entered the dice rolling game.");
+            Utils.SpacedPrint("Hello, you have entered the dice rolling game.");
             MenuService.DisplayMenuOptions();
+            Utils.SpacedPrint("Starting new game");
+            string playerName = PlayerService.GetPlayerName();
+            Player player = new Player(playerName);
+            bool isGameActive = true;    
             while(isGameActive) {
-                string playerName = PlayerService.GetPlayerName();
-                Player player = new Player(playerName);
                 Player computer = new Player("Computer");
                 int numRounds = PlayerService.GetNumberOfRounds();
                 int roundNum = 1;
                 while(roundNum <= numRounds) {
-                    Utils.PrintDivider();
+                    System.Console.WriteLine();
                     Utils.Typewriter($"Starting round {roundNum}");
                     int playerRoll = PlayerService.PlayerRound(player);
                     int computerRoll = computer.Roll();
-                    GameResult roundResult = GameService.GetWinner(playerRoll, computerRoll);
-                    GameService.PrintWinner(roundResult, player.Name);
+                    string roundWinner = GameService.GetWinner(player.Name, playerRoll, computerRoll);
+                    Utils.Typewriter(roundWinner);
                     roundNum ++; 
                 }
                 var (playerWins, computerWins, ties) = 
@@ -48,6 +48,7 @@ namespace DiceGame
                 {
                     player.Rolls.Clear();
                     computer.Rolls.Clear();
+                    MenuService.DisplayMenuOptions();
                 } else 
                 {
                     Utils.GoodbyeMessage();

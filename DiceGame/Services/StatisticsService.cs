@@ -2,6 +2,7 @@
 using DiceGame.Utilities;
 using DiceGame.Enums;
 using DiceGame.Models;
+using DiceGame.Constants;
 
 namespace DiceGame.Services
 {
@@ -9,7 +10,7 @@ namespace DiceGame.Services
     {
         public static void ViewGameHistory()
         {
-            List<GameStats> gameData = FileManager.LoadFromJsonFile<GameStats>("gamestats.json");
+            List<GameStats> gameData = FileManager.LoadFromJsonFile<GameStats>(FileLocations.GameStatsLocation);
 
             if (gameData.Count == 0)
             {
@@ -19,28 +20,28 @@ namespace DiceGame.Services
 
             foreach (var item in gameData)
             {
+                var roundResult = GameService.GetWinner(item.PlayerName,item.PlayerRoundsWon, item.ComputerRoundsWon);
                 Console.WriteLine($""" 
 
                     Date: {item.DatePlayed}
                     Name: {item.PlayerName}
-                    ounds Won: {item.PlayerRoundsWon}
+                    Rounds Won: {item.PlayerRoundsWon}
                     Rounds Lost: {item.ComputerRoundsWon}
                     Rounds Tied: {item.TiedRounds}
+                    {roundResult}
+
                 """);
                 
-                var roundResult = GameService.GetWinner(item.PlayerRoundsWon, item.ComputerRoundsWon);
-                GameService.PrintWinner(roundResult, item.PlayerName);
-                Console.WriteLine();
             }
         }
        
         public static void ViewPlayerStats()
         {
-            // List<GameStats> history = GetGameData("gamestats.json");
-            List<GameStats> gameData = FileManager.LoadFromJsonFile<GameStats>("gamestats.json");
+            List<GameStats> gameData = FileManager.LoadFromJsonFile<GameStats>(FileLocations.GameStatsLocation);
 
-            if(gameData.Count > 0) {
-                                Utils.Typewriter("No player data found");
+            if(gameData.Count == 0) {
+                Utils.Typewriter("No player data found");
+                return;
             }
 
             var groupedByName = gameData.GroupBy(item => item.PlayerName);
@@ -64,6 +65,11 @@ namespace DiceGame.Services
 
                 """);                 
             }
+        }
+        public static void ResetStats()
+        {
+            File.WriteAllText(FileLocations.GameStatsLocation, "[]");
+            Utils.Typewriter("Game Data has been reset");
         }
     }
 }

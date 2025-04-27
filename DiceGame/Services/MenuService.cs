@@ -12,13 +12,18 @@ namespace DiceGame.Services
             bool exit = false;
             while (!exit)
             {
-                Console.WriteLine("=== Dice Game Menu ===");
-                Console.WriteLine($"1. Start New Game");
-                Console.WriteLine($"2. View Game History");
-                Console.WriteLine($"3. View Player Stats");
-                Console.WriteLine($"4. Reset Stats");
-                Console.WriteLine($"5. Exit");
-                Console.Write("Select an option: ");
+
+                Utils.Typewriter($"""
+
+                === Dice Game Menu ===
+                1. Start New Game
+                2. View Game History
+                3. View Player Stats
+                4. Reset Stats
+                5. Exit
+
+                Select an option: 
+                """, 8);  
                 
                 var choice = Console.ReadLine();
                 
@@ -35,7 +40,7 @@ namespace DiceGame.Services
                         StatisticsService.ViewPlayerStats();
                         break;
                     case MainMenuVars.ResetStats:
-                        // ResetStats();
+                        StatisticsService.ResetStats();
                         break;
                     case MainMenuVars.Exit:
                         Utils.GoodbyeMessage();

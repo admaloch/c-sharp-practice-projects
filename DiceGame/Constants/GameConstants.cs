@@ -9,6 +9,5 @@ namespace DiceGame.Constants
         public const string RollKey = "r";
         public const string PlayAgainKey = "y";
         public const string QuitKey = "q";
-
     }  
 }
